@@ -22,10 +22,17 @@ inquirer.prompt([
 
     const htmlString = generateHtml(response.userName, response.hobby, response.linkedIn);
 
-    fs.writeFile("../../index2.html", htmlString, function (err) {
-        if (err) throw err;
-        console.log("Successfully created index.html");
-    });
+    // fs.writeFile("../../index2.html", htmlString, function (err) {
+    //     if (err) throw err;
+    //     console.log("Successfully created index.html");
+    // });
+    writeFileAsync("index2.html, htmlString")
+        .then(() => {
+            console.log("Wrote file...");
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }).catch((err) => {
     console.log(err);
 });

@@ -6,11 +6,32 @@ inquirer.prompt([
         name: "userName",
         type: "input",
         message: "what is your name?"
+    },
+    {
+        name: "hobby",
+        type: "input",
+        message: "what is your name?"
+    },
+    {
+        name: "linkedIn",
+        type: "input",
+        message: "what is your name?"
     }
 ]).then(response => {
     console.log(response);
 
-    const htmlString = `<!DOCTYPE html>
+    const htmlString = generateHtml(response.userName, response.hobby, response.linkedIn);
+
+    fs.writeFile("../../index2.html", htmlString, function (err) {
+        if (err) throw err;
+        console.log("Successfully created index.html");
+    });
+}).catch((err) => {
+    console.log(err);
+});
+
+function generateHtml(name, hobby, linkedInUrl) {
+    return `<!DOCTYPE html>
     <html class="no-js">
         <head>
             <meta charset="utf-8" />
@@ -22,15 +43,11 @@ inquirer.prompt([
         </head>
         <body>
             <h1>Vincent World</h1>
-            <h1>${response.userName}</h1>
+            <h1>${name}</h1>
+            <h1>${hobby}</h1>
+            <h1>${linkedInUrl}</h1>
             <script src="./assets/JS/index.js" async defer></script>
         </body>
     </html>
     `;
-    fs.writeFile("../../index2.html", htmlString, function (err) {
-        if (err) throw err;
-        console.log("Successfully created index.html");
-    });
-}).catch((err) => {
-    console.log(err);
-});
+}
